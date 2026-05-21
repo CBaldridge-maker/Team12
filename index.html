@@ -1,0 +1,485 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PurrSec Labs</title>
+    <meta
+      name="description"
+      content="PurrSec Labs is a fictional cybersecurity SOC dashboard and educational lab focused on defensive security and safe Meowware analysis."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container nav-container">
+        <a href="#hero" class="logo">PurrSec Labs</a>
+        <nav>
+          <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#threat-intelligence">Threat Feed</a></li>
+            <li><a href="#meowware-analysis">Meowware</a></li>
+            <li><a href="#analyst-team">Team</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section id="hero" class="hero">
+        <div class="container hero-content">
+          <span class="eyebrow">SOC training and research</span>
+          <h1>PurrSec Labs</h1>
+          <p>
+            An operational-style SOC platform that showcases analyst workflows, reporting, and defensive threat visibility.
+          </p>
+          <div class="hero-actions">
+            <a class="btn" href="#threat-intelligence">View Threat Feed</a>
+            <a class="btn btn-secondary" href="#meowware-analysis">Open Meowware Analysis</a>
+          </div>
+          <div class="hero-panel">
+            <div class="stat-card">
+              <p class="stat-label">Threat alerts</p>
+              <p class="stat-value">5 active</p>
+            </div>
+            <div class="stat-card">
+              <p class="stat-label">Sandbox runs</p>
+              <p class="stat-value">27 safe detonations</p>
+            </div>
+            <div class="stat-card">
+              <p class="stat-label">Analyst hits</p>
+              <p class="stat-value">84% triage success</p>
+            </div>
+            <div class="stat-card">
+              <p class="stat-label">CSIRT readiness</p>
+              <p class="stat-value">Operational posture</p>
+              <p class="stat-note">CERT-style coordination and incident readiness</p>
+            </div>
+            <div class="stat-card">
+              <p class="stat-label">Honeypot captures</p>
+              <p class="stat-value">12 traps logged</p>
+              <p class="stat-note">Deception activity collected for threat analysis</p>
+            </div>
+            <div class="stat-card">
+              <p class="stat-label">Live status</p>
+              <p class="stat-value" id="live-status">00:00:00</p>
+              <p class="stat-note">Updating every second</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="threat-intelligence" class="section-dark">
+        <div class="container section-header">
+          <span class="eyebrow">Threat Intelligence</span>
+          <h2>SOC alert dashboard</h2>
+          <p>
+            Secure alert data designed for defensive storyboarding. All content is safe and suitable for training and portfolio demonstration.
+          </p>
+        </div>
+
+        <div class="grid layout-2col">
+          <div class="panel">
+            <div class="panel-header">
+              <h3>Alert feed</h3>
+              <p>Search and review threat detections.</p>
+            </div>
+            <div class="search-row">
+              <label for="alert-search" class="sr-only">Search alerts</label>
+              <input id="alert-search" type="text" placeholder="Search alerts by keyword..." />
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Time</th>
+                    <th>Alert</th>
+                    <th>Category</th>
+                    <th>Severity</th>
+                    <th>Note</th>
+                  </tr>
+                </thead>
+                <tbody id="alert-rows">
+                  <tr>
+                    <td>09:18</td>
+                    <td>ClawCrypt encryption attempt</td>
+                    <td><span class="badge badge-critical">Ransomware</span></td>
+                    <td><span class="badge badge-high">Critical</span></td>
+                    <td>Ransomware event contained for education.</td>
+                  </tr>
+                  <tr>
+                    <td>09:25</td>
+                    <td>Phishing domain detected</td>
+                    <td><span class="badge badge-info">Phishing</span></td>
+                    <td><span class="badge badge-high">High</span></td>
+                    <td>Fake login page simulated in a training feed.</td>
+                  </tr>
+                  <tr>
+                    <td>09:32</td>
+                    <td>Suspicious outbound beacon</td>
+                    <td><span class="badge badge-warning">Outbound</span></td>
+                    <td><span class="badge badge-medium">Medium</span></td>
+                    <td>Phantom beacon blocked in the SOC mockup.</td>
+                  </tr>
+                  <tr>
+                    <td>09:45</td>
+                    <td>Credential stuffing attempt</td>
+                    <td><span class="badge badge-purple">Account</span></td>
+                    <td><span class="badge badge-high">High</span></td>
+                    <td>Simulated brute-force login behavior.</td>
+                  </tr>
+                  <tr>
+                    <td>10:02</td>
+                    <td>DNS reconnaissance pattern</td>
+                    <td><span class="badge badge-success">Recon</span></td>
+                    <td><span class="badge badge-low">Low</span></td>
+                    <td>Safe example of anomalous scanning telemetry.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="panel terminal-panel">
+            <div class="panel-header">
+              <h3>SOC Monitor</h3>
+            </div>
+            <div class="terminal-window">
+              <div class="terminal-header">
+                <span class="terminal-dot red"></span>
+                <span class="terminal-dot yellow"></span>
+                <span class="terminal-dot green"></span>
+                <span class="terminal-title">SOC Monitor</span>
+              </div>
+              <div class="terminal-body" id="alert-ticker">
+                <div id="ticker-lines"></div>
+                <p class="terminal-line terminal-current"><span id="ticker-current"></span><span id="ticker-cursor">▌</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="meowware-analysis" class="section-light">
+        <div class="container section-header">
+          <span class="eyebrow">Meowware Analysis</span>
+          <h2>Malware research dashboard</h2>
+          <p>
+            Safe, educational reports illustrated with IOCs, sandbox behavior, process trees, and network activity.
+          </p>
+        </div>
+
+        <div class="grid cards-grid">
+          <article class="card">
+            <h3>Analysis reports</h3>
+            <p>5 Meowware incidents reviewed in safe defensive workflows.</p>
+          </article>
+          <article class="card">
+            <h3>IOC indicators</h3>
+            <p>Domain, IP, hash, and registry indicators are presented as learning examples.</p>
+          </article>
+          <article class="card">
+            <h3>Sandbox activity</h3>
+            <p>Executed behavior is monitored without real malware or offense.</p>
+          </article>
+          <article class="card">
+            <h3>Network connections</h3>
+            <p>Outbound and blocked traffic is shown to teach analyst response.</p>
+          </article>
+        </div>
+
+        <div class="grid layout-2col">
+          <div class="panel">
+            <h3>Process tree snapshot</h3>
+            <ul class="process-tree">
+              <li><strong>explorer.exe</strong> → svchost.exe → catbot.exe</li>
+              <li><strong>explorer.exe</strong> → notepad.exe</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>Sandbox activity</h3>
+            <ul class="activity-list">
+              <li><strong>Process spawn:</strong> Injected into svchost.exe</li>
+              <li><strong>Filesystem:</strong> Created temp catcache.dll</li>
+              <li><strong>Network:</strong> Blocked phantom HTTPS beacon</li>
+              <li><strong>Detection:</strong> Throttled credential stuffing patterns</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="osint-dashboard" class="section-dark">
+        <div class="container section-header">
+          <span class="eyebrow">OSINT Investigation</span>
+          <h2>OSINT intelligence command center</h2>
+          <p>
+            An investigation dashboard built around domain intelligence, metadata analysis, WHOIS lookups,
+            DNS records, social reconnaissance, and threat feed indicators.
+          </p>
+        </div>
+
+        <div class="grid layout-2col">
+          <div class="panel">
+            <div class="panel-header">
+              <h3>Investigation workspace</h3>
+              <p>Explore a mock OSINT case with synthetic data and analyst-focused insights.</p>
+            </div>
+            <div class="dashboard-search-row">
+              <label for="osint-search" class="sr-only">Search OSINT cases</label>
+              <input id="osint-search" type="text" placeholder="Search cases, domains, metadata tags..." />
+            </div>
+
+            <div class="osint-status-grid">
+              <div class="status-card">
+                <p class="status-label">Domain trust</p>
+                <p class="status-value">Low</p>
+              </div>
+              <div class="status-card">
+                <p class="status-label">WHOIS freshness</p>
+                <p class="status-value">15 days</p>
+              </div>
+              <div class="status-card">
+                <p class="status-label">DNS anomalies</p>
+                <p class="status-value">3 flagged</p>
+              </div>
+            </div>
+
+            <div class="tool-grid">
+              <article class="tool-card">
+                <h4>WHOIS explorer</h4>
+                <p>View registration details and registrar history for mock domains.</p>
+              </article>
+              <article class="tool-card">
+                <h4>DNS analyzer</h4>
+                <p>Inspect synthetic A, MX, TXT, and CNAME records for educational patterns.</p>
+              </article>
+              <article class="tool-card">
+                <h4>Metadata scanner</h4>
+                <p>Review file and image metadata in a safe training context.</p>
+              </article>
+              <article class="tool-card">
+                <h4>Social monitor</h4>
+                <p>Track public mentions and threat chatter without real people.</p>
+              </article>
+              <article class="tool-card">
+                <h4>Threat feed</h4>
+                <p>Consume curated intelligence signals from synthetic analyst sources.</p>
+              </article>
+            </div>
+
+            <div class="osint-result-list">
+              <article class="result-item" data-search="phishcat farm whois dns metadata social threat">
+                <div class="result-header">
+                  <div>
+                    <p class="result-title">phishcat.farm</p>
+                    <p class="result-subtext">Sample domain used in safe reconnaissance demonstrations.</p>
+                  </div>
+                  <span class="badge badge-info">Domain</span>
+                </div>
+                <div class="result-meta">
+                  <span>WHOIS age: 15 days</span>
+                  <span>DNS TTL: 300</span>
+                  <span>Reputation: suspicious</span>
+                </div>
+              </article>
+              <article class="result-item" data-search="catmail.net email metadata whois dns social">
+                <div class="result-header">
+                  <div>
+                    <p class="result-title">catmail.net</p>
+                    <p class="result-subtext">Phony mail provider appearing in OSINT pipelines.</p>
+                  </div>
+                  <span class="badge badge-warning">Metadata</span>
+                </div>
+                <div class="result-meta">
+                  <span>WHOIS age: 12 days</span>
+                  <span>DNS MX records: 2</span>
+                  <span>Social mention: 8</span>
+                </div>
+              </article>
+              <article class="result-item" data-search="nettracker.io dns whois social threat intelligence">
+                <div class="result-header">
+                  <div>
+                    <p class="result-title">nettracker.io</p>
+                    <p class="result-subtext">Sample investigative target with layered OSINT signals.</p>
+                  </div>
+                  <span class="badge badge-high">Threat</span>
+                </div>
+                <div class="result-meta">
+                  <span>WHOIS age: 22 days</span>
+                  <span>DNS A records: 4</span>
+                  <span>Reputation: moderate</span>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <h3>OSINT terminal</h3>
+              <p>Animated analyst logs with mock lookup progress and sample feed updates.</p>
+            </div>
+            <div class="terminal-window osint-terminal-window">
+              <div class="terminal-header">
+                <span class="terminal-dot red"></span>
+                <span class="terminal-dot yellow"></span>
+                <span class="terminal-dot green"></span>
+                <span class="terminal-title">OSINT Console</span>
+              </div>
+              <div class="terminal-body" id="osint-ticker">
+                <div id="osint-ticker-lines"></div>
+                <p class="terminal-line terminal-current"><span id="osint-ticker-current"></span><span id="osint-ticker-cursor">▌</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid cards-grid">
+          <article class="dashboard-card" data-card="Domain intelligence">
+            <div>
+              <h3>Domain intelligence</h3>
+              <p>WHOIS, DNS, and reputation details for investigative summaries.</p>
+            </div>
+            <div class="card-detail">
+              <p>Mock domain lookups are presented with privacy-preserving teaching examples and learned patterns.</p>
+            </div>
+          </article>
+          <article class="dashboard-card" data-card="Metadata analysis">
+            <div>
+              <h3>Metadata analysis</h3>
+              <p>Extracted sample file and image metadata for OSINT workflows.</p>
+            </div>
+            <div class="card-detail">
+              <p>Details include fictional author tags, creation dates, and application traces built for education.</p>
+            </div>
+          </article>
+          <article class="dashboard-card" data-card="Social media reconnaissance">
+            <div>
+              <h3>Social media reconnaissance</h3>
+              <p>Simulated social signals and analyst insights from public-facing channels.</p>
+            </div>
+            <div class="card-detail">
+              <p>Sample social footprints, mention volumes, and profile patterns are shown without real accounts.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="grid layout-2col">
+          <div class="panel">
+            <h3>Threat intelligence graph</h3>
+            <div class="threat-graph">
+              <div class="graph-row">
+                <span>Phishing signals</span>
+                <div class="graph-bar"><span class="graph-fill fill-high"></span></div>
+                <strong>78%</strong>
+              </div>
+              <div class="graph-row">
+                <span>Malicious DNS</span>
+                <div class="graph-bar"><span class="graph-fill fill-medium"></span></div>
+                <strong>55%</strong>
+              </div>
+              <div class="graph-row">
+                <span>Fresh WHOIS</span>
+                <div class="graph-bar"><span class="graph-fill fill-low"></span></div>
+                <strong>34%</strong>
+              </div>
+              <div class="graph-row">
+                <span>Social chatter</span>
+                <div class="graph-bar"><span class="graph-fill fill-info"></span></div>
+                <strong>62%</strong>
+              </div>
+            </div>
+          </div>
+          <div class="panel loading-panel">
+            <h3>Live analysis pipeline</h3>
+            <div class="loading-animation">
+              <div class="loader-dot"></div>
+              <div class="loader-dot"></div>
+              <div class="loader-dot"></div>
+            </div>
+            <p class="loading-caption">Simulated OSINT pipeline processing sample indicators with safe, fictional telemetry.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="analyst-team" class="section-dark">
+        <div class="container section-header">
+          <span class="eyebrow">Analyst Team</span>
+          <h2>Cat-powered cybersecurity analysts</h2>
+          <p>
+            Meet the PurrSec team with professional roles, certifications, specialties, and portfolio-focused experience.
+          </p>
+        </div>
+
+        <div class="grid team-grid">
+          <article class="team-card">
+            <div class="avatar photo-avatar">
+              <img src="downloaded/whiskers.png" alt="Whiskers cat photo" />
+            </div>
+            <h3>Whiskers</h3>
+            <p class="role">Threat Hunter</p>
+            <p class="info"><strong>Certifications:</strong> CTIA, TI-101</p>
+            <p class="info"><strong>Specialties:</strong> IOC enrichment, adversary emulation</p>
+            <p class="bio">Whiskers tracks advanced adversary behavior and helps the team identify high-risk activity with precision.</p>
+          </article>
+          <article class="team-card">
+            <div class="avatar photo-avatar">
+              <img src="downloaded/salem.png" alt="Salem cat photo" />
+            </div>
+            <h3>Salem</h3>
+            <p class="role">Malware Analyst</p>
+            <p class="info"><strong>Certifications:</strong> MRE-202</p>
+            <p class="info"><strong>Specialties:</strong> sandbox triage, payload behavior</p>
+            <p class="bio">Salem evaluates Meowware behavior and translates findings into practical detection guidance.</p>
+          </article>
+          <article class="team-card">
+            <div class="avatar photo-avatar">
+              <img src="downloaded/luna.png" alt="Luna cat photo" />
+            </div>
+            <h3>Luna</h3>
+            <p class="role">SOC Manager</p>
+            <p class="info"><strong>Certifications:</strong> SOC-303</p>
+            <p class="info"><strong>Specialties:</strong> incident coordination, alert strategy</p>
+            <p class="bio">Luna leads SOC operations with steady focus and ensures incident response remains efficient and clear.</p>
+          </article>
+          <article class="team-card">
+            <div class="avatar photo-avatar">
+              <img src="downloaded/paws.png" alt="Paws cat photo" />
+            </div>
+            <h3>Paws</h3>
+            <p class="role">Intel Engineer</p>
+            <p class="info"><strong>Certifications:</strong> SDS-108</p>
+            <p class="info"><strong>Specialties:</strong> log parsing, dashboard design</p>
+            <p class="bio">Paws designs intelligence workflows that make threat evidence easier to understand and act on.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="contact" class="section-light">
+        <div class="container section-header">
+          <span class="eyebrow">Contact</span>
+          <h2>Entrusted to keep users safe</h2>
+          <p>
+            PurrSec Labs delivers resilient monitoring and response, helping keep people and systems protected with cat-powered SOC workflows.
+          </p>
+          <div class="disclaimer-box">
+            <p><strong>DISCLAIMER:</strong> PurrSec Labs and Meowware Analysis are portfolio projects created for cybersecurity learning, UI/UX practice, and defensive-security demonstrations.</p>
+            <p>This demo contains no real malware, no active attacks, and no unauthorized access techniques.</p>
+          </div>
+        </div>
+        <div class="contact-panel">
+          <p>PurrSec Labs is a polished training platform featuring cat-powered analyst workflows, SOC reporting, and threat visibility.</p>
+          <p class="subtle">The dashboard uses safe fictional examples to showcase design, investigation, and response processes.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer-content">
+        <p>© 2026 PurrSec Labs — fictional cybersecurity portfolio demo.</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
