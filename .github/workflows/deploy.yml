@@ -1,4 +1,4 @@
-name: Deploy to Azure Static Website
+name: Deploy Site
 
 on:
   push:
@@ -10,17 +10,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Upload to Azure Blob Storage
-        uses: azure/CLI@v2
+      - uses: actions/setup-node@v4
         with:
-          azcliversion: latest
-          inlineScript: |
-            az storage blob upload-batch \
-              --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT }} \
-              --destination '$web' \
-              --source . \
-              --auth-mode key \
-              --account-key ${{ secrets. }}
+          node-version: 20
+
+      - run: npm ci
+      - run: npm run build
+
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - run: |
+          az storage blob upload-batch \
+            --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} \
+            --destination '$web' \
+            --source dist \
+            --overwrite
