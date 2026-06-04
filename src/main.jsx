@@ -10,7 +10,7 @@ function VisitorCounter() {
 
   useEffect(() => {
     // 1. Fetch the configuration file you created
-    fetch('/frontend/config.json')
+    fetch('/config.json')
       .then(response => response.json())
       .then(config => {
         // 2. Use the apiBaseUrl from the config to fetch the actual count
