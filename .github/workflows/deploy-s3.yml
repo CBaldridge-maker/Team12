@@ -21,9 +21,7 @@ jobs:
 
     # 3. Install dependencies and build (Using npm install to avoid missing lockfile errors)
     - name: Install dependencies and build
-      run: |
-        npm install
-        npm run build
+      run: npm install
 
     # 4. Configure AWS Credentials
     - name: Configure AWS Credentials
