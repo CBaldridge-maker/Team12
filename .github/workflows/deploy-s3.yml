@@ -1,0 +1,39 @@
+name: Deploy Frontend to AWS S3
+
+on:
+  push:
+    branches:
+      - main # Triggers the deploy when you push to the main branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    # 1. Checkout the repository code
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    # 2. Setup Node environment
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    # 3. Install dependencies and build (Using npm install to avoid missing lockfile errors)
+    - name: Install dependencies and build
+      run: |
+        npm install
+        npm run build
+
+    # 4. Configure AWS Credentials
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1 # <-- Change this if your S3 bucket is in a different region (e.g., us-west-2)
+
+    # 5. Deploy files to S3 bucket
+    - name: Deploy to S3
+      run: |
+        aws s3 sync ./build s3://${{ secrets.AWS_S3_BUCKET_NAME }} --delete
