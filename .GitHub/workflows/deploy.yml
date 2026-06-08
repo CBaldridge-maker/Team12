@@ -1,0 +1,44 @@
+name: Deploy Frontend to Azure $web
+
+on:
+  push:
+    branches:
+      - main # Change this if your default branch is named differently (e.g., 'master')
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    # 1. Checkout the code
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    # 2. Setup Node environment
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20' # Update to match your project's Node version
+
+    # 3. Install dependencies and build (runs at the root level now)
+    - name: Install dependencies and build
+      run: |
+        npm ci
+        npm run build
+
+    # 4. Login to Azure
+    - name: Azure Login
+      uses: azure/login@v2
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    # 5. Upload to the $web container
+    - name: Upload to Azure Storage
+      uses: azure/CLI@v2
+      with:
+        inlineScript: |
+          az storage blob upload-batch \
+            --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }} \
+            --destination '$web' \
+            --source ./build \
+            --overwrite \
+            --auth-mode login
