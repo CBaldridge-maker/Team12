@@ -1,0 +1,36 @@
+name: Deploy Frontend to AWS
+
+on:
+  push:
+    branches:
+      - main # Or 'master', depending on your default branch name
+
+# CRITICAL: These permissions are required for OIDC authentication
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::650708167547:role/GitHubActionsFrontendDeploy
+          aws-region: us-east-1
+
+      # Note: Change './' to './dist' or './build' if your files are inside a build folder
+      - name: Sync frontend files to S3
+        run: |
+          aws s3 sync ./ s3://purrsec --delete
+
+      - name: Invalidate CloudFront Cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id E1K6O76P9BES8W \
+            --paths "/*"
