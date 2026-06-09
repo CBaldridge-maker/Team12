@@ -22,7 +22,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::650708167547:role/GitHubActionsFrontendDeploy
-          aws-region: us-east-2
+          aws-region: us-east-1
 
       # Note: Change './' to './dist' or './build' if your files are inside a build folder
       - name: Sync frontend files to S3
